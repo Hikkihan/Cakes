@@ -1,0 +1,94 @@
+﻿<Window x:Class="Cakes.Ingredients_page"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cakes"
+        mc:Ignorable="d"
+        Title="Ingredients_page" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="239*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="145*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="13*"/>
+        </Grid.ColumnDefinitions>
+        <Button
+            Grid.Column="2"
+            Background="Orange"
+            Margin="2"
+            x:Name="Выход" Click="Выход_Click"
+            >
+            <Image
+                Source="C:\Users\mkiri\Pictures\93627.png"
+                Stretch="Uniform">
+
+            </Image>
+        </Button>
+        <DatePicker
+            
+            Grid.Row="1"
+            Grid.Column="1"
+            FontSize="14"
+            Foreground="Black"
+            Opacity="0.6"
+            BorderThickness="3"
+            BorderBrush="Orange"
+            Name="Дата"
+            
+            >
+        </DatePicker>
+        <DataGrid
+            Grid.Column="0"
+            Grid.Row="1"
+            Grid.RowSpan="5"
+            Margin="3"
+            BorderThickness="5"
+            BorderBrush="Orange"
+            x:Name="ShowInstruments">
+        </DataGrid>
+        <Button
+            Grid.Column="1"
+            Grid.Row="3"
+            Content="Изменить"
+            x:Name="Изменить"
+            Background="Orange"
+            Foreground="Black"
+            FontSize="14"
+            FontFamily="TimesNewRoman"
+            FontWeight="DemiBold"
+            Margin="3,3,0,3" Click="Изменить_Click" HorizontalAlignment="Left" Width="154">
+        </Button>
+        <Button
+            Grid.Column="1"
+            Grid.Row="4"
+            Content="Удалить"
+            x:Name="Удалить"
+            Background="Orange"
+            Foreground="Black"
+            FontSize="14"
+            FontFamily="TimesNewRoman"
+            FontWeight="DemiBold"
+            Margin="3" Click="Удалить_Click">
+        </Button>
+        <Button
+            Grid.Column="1"
+            Grid.Row="2"
+            Content="Выбрать"
+            x:Name="Выбрать"
+            Background="Orange"
+            Foreground="Black"
+            FontSize="14"
+            FontFamily="TimesNewRoman"
+            FontWeight="DemiBold"
+            Margin="3" Click="Выбрать_Click">
+        </Button>
+    </Grid>
+</Window>

@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CakesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Заказ">
+    <Key>
+      <PropertyRef Name="Номер" />
+      <PropertyRef Name="Дата" />
+    </Key>
+    <Property Name="Номер" Type="Int32" Nullable="false" />
+    <Property Name="Дата" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="Наименование_заказа" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Изделие" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Заказчик" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ответственный_менеджер" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Стоимость" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Плановая_дата_завершения" Type="DateTime" Precision="7" />
+    <Property Name="Примеры_работ" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Изделие1" Relationship="Self.FK_Заказ_Изделие" FromRole="Заказ" ToRole="Изделие" />
+    <NavigationProperty Name="Пользователи" Relationship="Self.FK_Заказ_Пользователи" FromRole="Заказ" ToRole="Пользователи" />
+  </EntityType>
+  <EntityType Name="Изделие">
+    <Key>
+      <PropertyRef Name="Наименование" />
+    </Key>
+    <Property Name="Наименование" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Размер" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Заказ" Relationship="Self.FK_Заказ_Изделие" FromRole="Изделие" ToRole="Заказ" />
+    <NavigationProperty Name="Спецификация_ингредиенты" Relationship="Self.FK_Спецификация_ингредиенты_Изделие" FromRole="Изделие" ToRole="Спецификация_ингредиенты" />
+    <NavigationProperty Name="Спецификация_операции" Relationship="Self.FK_Спецификация_операции_Изделие" FromRole="Изделие" ToRole="Спецификация_операции" />
+    <NavigationProperty Name="Спецификация_полуфабрикат" Relationship="Self.FK_Спецификация_полуфабрикат_Изделие" FromRole="Изделие" ToRole="Спецификация_полуфабрикат" />
+    <NavigationProperty Name="Спецификация_полуфабрикат1" Relationship="Self.FK_Спецификация_полуфабрикат_Изделие1" FromRole="Изделие" ToRole="Спецификация_полуфабрикат" />
+    <NavigationProperty Name="Спецификация_украшения_для_торта" Relationship="Self.FK_Спецификация_украшения_для_торта_Изделие" FromRole="Изделие" ToRole="Спецификация_украшения_для_торта" />
+  </EntityType>
+  <EntityType Name="Ингредиенты">
+    <Key>
+      <PropertyRef Name="Артикул" />
+    </Key>
+    <Property Name="Артикул" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Наименование" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Единицы_измерения" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Количество" Type="Int32" Nullable="false" />
+    <Property Name="Тип" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Цена" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="ГОСТ" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Фасовка" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Характеристика" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Поставщик" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Изображение" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Поставщик1" Relationship="Self.FK_Ингредиенты_Поставщик" FromRole="Ингредиенты" ToRole="Поставщик" />
+    <NavigationProperty Name="Спецификация_ингредиенты" Relationship="Self.FK_Спецификация_ингредиенты_Ингредиенты" FromRole="Ингредиенты" ToRole="Спецификация_ингредиенты" />
+    <Property Name="Дата" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Оборудование">
+    <Key>
+      <PropertyRef Name="Маркировка" />
+    </Key>
+    <Property Name="Маркировка" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Тип_оборудования" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Характеристики" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Тип_оборудования1" Relationship="Self.FK_Оборудование_Тип_оборудования" FromRole="Оборудование" ToRole="Тип_оборудования" />
+  </EntityType>
+  <EntityType Name="Пользователи">
+    <Key>
+      <PropertyRef Name="Login" />
+      <PropertyRef Name="Password" />
+    </Key>
+    <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Role" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Фамилия" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Имя_Отчество" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Фото" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Заказ" Relationship="Self.FK_Заказ_Пользователи" FromRole="Пользователи" ToRole="Заказ" />
+  </EntityType>
+  <EntityType Name="Поставщик">
+    <Key>
+      <PropertyRef Name="Название_поставщика" />
+    </Key>
+    <Property Name="Название_поставщика" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Адрес" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Срок_доставки" Type="DateTime" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Ингредиенты" Relationship="Self.FK_Ингредиенты_Поставщик" FromRole="Поставщик" ToRole="Ингредиенты" />
+    <NavigationProperty Name="Украшения_для_торта" Relationship="Self.FK_Украшения_для_торта_Поставщик" FromRole="Поставщик" ToRole="Украшения_для_торта" />
+  </EntityType>
+  <EntityType Name="Спецификация_ингредиенты">
+    <Key>
+      <PropertyRef Name="Изделие" />
+      <PropertyRef Name="Ингредиент" />
+    </Key>
+    <Property Name="Изделие" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ингредиент" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Кол_во" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Изделие1" Relationship="Self.FK_Спецификация_ингредиенты_Изделие" FromRole="Спецификация_ингредиенты" ToRole="Изделие" />
+    <NavigationProperty Name="Ингредиенты" Relationship="Self.FK_Спецификация_ингредиенты_Ингредиенты" FromRole="Спецификация_ингредиенты" ToRole="Ингредиенты" />
+  </EntityType>
+  <EntityType Name="Спецификация_операции">
+    <Key>
+      <PropertyRef Name="Изделие" />
+      <PropertyRef Name="Операция" />
+      <PropertyRef Name="Порядковый_номер" />
+    </Key>
+    <Property Name="Изделие" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Операция" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Порядковый_номер" Type="Int32" Nullable="false" />
+    <Property Name="Тип_оборудования" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Время_на_операцию" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Изделие1" Relationship="Self.FK_Спецификация_операции_Изделие" FromRole="Спецификация_операции" ToRole="Изделие" />
+    <NavigationProperty Name="Тип_оборудования1" Relationship="Self.FK_Спецификация_операции_Тип_оборудования" FromRole="Спецификация_операции" ToRole="Тип_оборудования" />
+  </EntityType>
+  <EntityType Name="Спецификация_полуфабрикат">
+    <Key>
+      <PropertyRef Name="Изделие" />
+      <PropertyRef Name="Полуфабрикат" />
+    </Key>
+    <Property Name="Изделие" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Полуфабрикат" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Кол_во" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Изделие1" Relationship="Self.FK_Спецификация_полуфабрикат_Изделие" FromRole="Спецификация_полуфабрикат" ToRole="Изделие" />
+    <NavigationProperty Name="Изделие2" Relationship="Self.FK_Спецификация_полуфабрикат_Изделие1" FromRole="Спецификация_полуфабрикат" ToRole="Изделие" />
+  </EntityType>
+  <EntityType Name="Спецификация_украшения_для_торта">
+    <Key>
+      <PropertyRef Name="Изделие" />
+      <PropertyRef Name="Украшение_для_торта" />
+    </Key>
+    <Property Name="Изделие" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Украшение_для_торта" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Кол_во" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Изделие1" Relationship="Self.FK_Спецификация_украшения_для_торта_Изделие" FromRole="Спецификация_украшения_для_торта" ToRole="Изделие" />
+    <NavigationProperty Name="Украшения_для_торта" Relationship="Self.FK_Спецификация_украшения_для_торта_Украшения_для_торта" FromRole="Спецификация_украшения_для_торта" ToRole="Украшения_для_торта" />
+  </EntityType>
+  <EntityType Name="Тип_оборудования">
+    <Key>
+      <PropertyRef Name="Тип_оборудования1" />
+    </Key>
+    <Property Name="Тип_оборудования1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Оборудование" Relationship="Self.FK_Оборудование_Тип_оборудования" FromRole="Тип_оборудования" ToRole="Оборудование" />
+    <NavigationProperty Name="Спецификация_операции" Relationship="Self.FK_Спецификация_операции_Тип_оборудования" FromRole="Тип_оборудования" ToRole="Спецификация_операции" />
+  </EntityType>
+  <EntityType Name="Украшения_для_торта">
+    <Key>
+      <PropertyRef Name="Артикул" />
+    </Key>
+    <Property Name="Артикул" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Наименование" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Единицы_измерения" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Количество" Type="Int32" Nullable="false" />
+    <Property Name="Тип" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Закуп_Цена" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Вес" Type="Double" Nullable="false" />
+    <Property Name="Поставщик" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Изображение" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Поставщик1" Relationship="Self.FK_Украшения_для_торта_Поставщик" FromRole="Украшения_для_торта" ToRole="Поставщик" />
+    <NavigationProperty Name="Спецификация_украшения_для_торта" Relationship="Self.FK_Спецификация_украшения_для_торта_Украшения_для_торта" FromRole="Украшения_для_торта" ToRole="Спецификация_украшения_для_торта" />
+  </EntityType>
+  <Association Name="FK_Заказ_Изделие">
+    <End Role="Изделие" Type="Self.Изделие" Multiplicity="1" />
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Изделие">
+        <PropertyRef Name="Наименование" />
+      </Principal>
+      <Dependent Role="Заказ">
+        <PropertyRef Name="Изделие" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Заказ_Пользователи">
+    <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Пользователи">
+        <PropertyRef Name="Login" />
+        <PropertyRef Name="Password" />
+      </Principal>
+      <Dependent Role="Заказ">
+        <PropertyRef Name="Заказчик" />
+        <PropertyRef Name="Ответственный_менеджер" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Спецификация_ингредиенты_Изделие">
+    <End Role="Изделие" Type="Self.Изделие" Multiplicity="1" />
+    <End Role="Спецификация_ингредиенты" Type="Self.Спецификация_ингредиенты" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Изделие">
+        <PropertyRef Name="Наименование" />
+      </Principal>
+      <Dependent Role="Спецификация_ингредиенты">
+        <PropertyRef Name="Изделие" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Спецификация_операции_Изделие">
+    <End Role="Изделие" Type="Self.Изделие" Multiplicity="1" />
+    <End Role="Спецификация_операции" Type="Self.Спецификация_операции" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Изделие">
+        <PropertyRef Name="Наименование" />
+      </Principal>
+      <Dependent Role="Спецификация_операции">
+        <PropertyRef Name="Изделие" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Спецификация_полуфабрикат_Изделие">
+    <End Role="Изделие" Type="Self.Изделие" Multiplicity="1" />
+    <End Role="Спецификация_полуфабрикат" Type="Self.Спецификация_полуфабрикат" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Изделие">
+        <PropertyRef Name="Наименование" />
+      </Principal>
+      <Dependent Role="Спецификация_полуфабрикат">
+        <PropertyRef Name="Изделие" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Спецификация_полуфабрикат_Изделие1">
+    <End Role="Изделие" Type="Self.Изделие" Multiplicity="1" />
+    <End Role="Спецификация_полуфабрикат" Type="Self.Спецификация_полуфабрикат" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Изделие">
+        <PropertyRef Name="Наименование" />
+      </Principal>
+      <Dependent Role="Спецификация_полуфабрикат">
+        <PropertyRef Name="Полуфабрикат" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Спецификация_украшения_для_торта_Изделие">
+    <End Role="Изделие" Type="Self.Изделие" Multiplicity="1" />
+    <End Role="Спецификация_украшения_для_торта" Type="Self.Спецификация_украшения_для_торта" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Изделие">
+        <PropertyRef Name="Наименование" />
+      </Principal>
+      <Dependent Role="Спецификация_украшения_для_торта">
+        <PropertyRef Name="Изделие" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ингредиенты_Поставщик">
+    <End Role="Поставщик" Type="Self.Поставщик" Multiplicity="0..1" />
+    <End Role="Ингредиенты" Type="Self.Ингредиенты" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Поставщик">
+        <PropertyRef Name="Название_поставщика" />
+      </Principal>
+      <Dependent Role="Ингредиенты">
+        <PropertyRef Name="Поставщик" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Спецификация_ингредиенты_Ингредиенты">
+    <End Role="Ингредиенты" Type="Self.Ингредиенты" Multiplicity="1" />
+    <End Role="Спецификация_ингредиенты" Type="Self.Спецификация_ингредиенты" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ингредиенты">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Спецификация_ингредиенты">
+        <PropertyRef Name="Ингредиент" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Оборудование_Тип_оборудования">
+    <End Role="Тип_оборудования" Type="Self.Тип_оборудования" Multiplicity="1" />
+    <End Role="Оборудование" Type="Self.Оборудование" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Тип_оборудования">
+        <PropertyRef Name="Тип_оборудования1" />
+      </Principal>
+      <Dependent Role="Оборудование">
+        <PropertyRef Name="Тип_оборудования" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Украшения_для_торта_Поставщик">
+    <End Role="Поставщик" Type="Self.Поставщик" Multiplicity="0..1" />
+    <End Role="Украшения_для_торта" Type="Self.Украшения_для_торта" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Поставщик">
+        <PropertyRef Name="Название_поставщика" />
+      </Principal>
+      <Dependent Role="Украшения_для_торта">
+        <PropertyRef Name="Поставщик" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Спецификация_операции_Тип_оборудования">
+    <End Role="Тип_оборудования" Type="Self.Тип_оборудования" Multiplicity="0..1" />
+    <End Role="Спецификация_операции" Type="Self.Спецификация_операции" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Тип_оборудования">
+        <PropertyRef Name="Тип_оборудования1" />
+      </Principal>
+      <Dependent Role="Спецификация_операции">
+        <PropertyRef Name="Тип_оборудования" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Спецификация_украшения_для_торта_Украшения_для_торта">
+    <End Role="Украшения_для_торта" Type="Self.Украшения_для_торта" Multiplicity="1" />
+    <End Role="Спецификация_украшения_для_торта" Type="Self.Спецификация_украшения_для_торта" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Украшения_для_торта">
+        <PropertyRef Name="Артикул" />
+      </Principal>
+      <Dependent Role="Спецификация_украшения_для_торта">
+        <PropertyRef Name="Украшение_для_торта" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CakesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Заказ" EntityType="Self.Заказ" />
+    <EntitySet Name="Изделие" EntityType="Self.Изделие" />
+    <EntitySet Name="Ингредиенты" EntityType="Self.Ингредиенты" />
+    <EntitySet Name="Оборудование" EntityType="Self.Оборудование" />
+    <EntitySet Name="Пользователи" EntityType="Self.Пользователи" />
+    <EntitySet Name="Поставщик" EntityType="Self.Поставщик" />
+    <EntitySet Name="Спецификация_ингредиенты" EntityType="Self.Спецификация_ингредиенты" />
+    <EntitySet Name="Спецификация_операции" EntityType="Self.Спецификация_операции" />
+    <EntitySet Name="Спецификация_полуфабрикат" EntityType="Self.Спецификация_полуфабрикат" />
+    <EntitySet Name="Спецификация_украшения_для_торта" EntityType="Self.Спецификация_украшения_для_торта" />
+    <EntitySet Name="Тип_оборудования" EntityType="Self.Тип_оборудования" />
+    <EntitySet Name="Украшения_для_торта" EntityType="Self.Украшения_для_торта" />
+    <AssociationSet Name="FK_Заказ_Изделие" Association="Self.FK_Заказ_Изделие">
+      <End Role="Изделие" EntitySet="Изделие" />
+      <End Role="Заказ" EntitySet="Заказ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Заказ_Пользователи" Association="Self.FK_Заказ_Пользователи">
+      <End Role="Пользователи" EntitySet="Пользователи" />
+      <End Role="Заказ" EntitySet="Заказ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Спецификация_ингредиенты_Изделие" Association="Self.FK_Спецификация_ингредиенты_Изделие">
+      <End Role="Изделие" EntitySet="Изделие" />
+      <End Role="Спецификация_ингредиенты" EntitySet="Спецификация_ингредиенты" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Спецификация_операции_Изделие" Association="Self.FK_Спецификация_операции_Изделие">
+      <End Role="Изделие" EntitySet="Изделие" />
+      <End Role="Спецификация_операции" EntitySet="Спецификация_операции" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Спецификация_полуфабрикат_Изделие" Association="Self.FK_Спецификация_полуфабрикат_Изделие">
+      <End Role="Изделие" EntitySet="Изделие" />
+      <End Role="Спецификация_полуфабрикат" EntitySet="Спецификация_полуфабрикат" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Спецификация_полуфабрикат_Изделие1" Association="Self.FK_Спецификация_полуфабрикат_Изделие1">
+      <End Role="Изделие" EntitySet="Изделие" />
+      <End Role="Спецификация_полуфабрикат" EntitySet="Спецификация_полуфабрикат" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Спецификация_украшения_для_торта_Изделие" Association="Self.FK_Спецификация_украшения_для_торта_Изделие">
+      <End Role="Изделие" EntitySet="Изделие" />
+      <End Role="Спецификация_украшения_для_торта" EntitySet="Спецификация_украшения_для_торта" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ингредиенты_Поставщик" Association="Self.FK_Ингредиенты_Поставщик">
+      <End Role="Поставщик" EntitySet="Поставщик" />
+      <End Role="Ингредиенты" EntitySet="Ингредиенты" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Спецификация_ингредиенты_Ингредиенты" Association="Self.FK_Спецификация_ингредиенты_Ингредиенты">
+      <End Role="Ингредиенты" EntitySet="Ингредиенты" />
+      <End Role="Спецификация_ингредиенты" EntitySet="Спецификация_ингредиенты" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Оборудование_Тип_оборудования" Association="Self.FK_Оборудование_Тип_оборудования">
+      <End Role="Тип_оборудования" EntitySet="Тип_оборудования" />
+      <End Role="Оборудование" EntitySet="Оборудование" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Украшения_для_торта_Поставщик" Association="Self.FK_Украшения_для_торта_Поставщик">
+      <End Role="Поставщик" EntitySet="Поставщик" />
+      <End Role="Украшения_для_торта" EntitySet="Украшения_для_торта" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Спецификация_операции_Тип_оборудования" Association="Self.FK_Спецификация_операции_Тип_оборудования">
+      <End Role="Тип_оборудования" EntitySet="Тип_оборудования" />
+      <End Role="Спецификация_операции" EntitySet="Спецификация_операции" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Спецификация_украшения_для_торта_Украшения_для_торта" Association="Self.FK_Спецификация_украшения_для_торта_Украшения_для_торта">
+      <End Role="Украшения_для_торта" EntitySet="Украшения_для_торта" />
+      <End Role="Спецификация_украшения_для_торта" EntitySet="Спецификация_украшения_для_торта" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CakesModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CakesModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="Инструменты" EntityType="CakesModel.Инструменты" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Инструменты">
+    <Key>
+      <PropertyRef Name="ID_Инструмента" />
+    </Key>
+    <Property Name="ID_Инструмента" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Наименование" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Описание" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Тип_инструмента" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Степень_износа" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Поставщик" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Дата_покупки" Type="DateTime" Precision="3" />
+    <Property Name="Количество" Type="Int32" />
+  </EntityType>
+</Schema>
